@@ -90,9 +90,9 @@ class ProductContainer extends React.Component {
                 <form className={styles.form}>
                     <label htmlFor="itemOverflow">item overflow:</label>
                     <input id="itemOverflow" placeholder="itemOverflow" type="number" value={this.state.itemOverflow} onChange={this.updateitemOverflow} />
-                    <label htmlFor="radioA">factoryA</label>
+                    <label htmlFor="radioA">itemfactoryA</label>
                     <input id="radioA" type="radio" value={"productItemA"} checked={this.state.itemFactory === "productItemA"} onChange={this.updateItemFactory} />
-                    <label htmlFor="radioB">factoryB</label>
+                    <label htmlFor="radioB">itemfactoryB</label>
                     <input id="radioB" type="radio" value={"productItemB"} checked={this.state.itemFactory === "productItemB"} onChange={this.updateItemFactory} />
                 </form>
 
