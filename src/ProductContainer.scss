@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.datacontainer {
+    display: flex;
+
+    height: 70vh;
+    width: 500px;
+}
+
+.form {
+    margin-bottom: 10px;
+}
+
+.filter {
+    height: 40px;
+    margin-bottom: 10px;
+}

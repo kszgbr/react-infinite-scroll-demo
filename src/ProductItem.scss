@@ -1,0 +1,51 @@
+.container {
+    height: 50px;
+    line-height: 50px;
+
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    padding-left: 15px;
+
+    background-color: cornflowerblue;
+    color: ghostwhite;
+
+    text-align: left;
+
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.container:last-child {
+    margin-bottom: 0px;
+}
+
+.container:hover {
+    background-color: ghostwhite;
+    color: cornflowerblue;
+}
+
+.container2 {
+    height: 50px;
+    line-height: 50px;
+
+    box-sizing: border-box;
+    margin-bottom: 5px;
+    padding-right: 15px;
+
+    text-align: right;
+
+    background-color: coral;
+    color: ghostwhite;
+
+    transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.container2:last-child {
+    margin-bottom: 0px;
+}
+
+.container2:hover {
+    background-color: ghostwhite;
+    color: coral;
+}
