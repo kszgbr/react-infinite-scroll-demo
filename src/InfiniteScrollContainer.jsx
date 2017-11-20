@@ -10,7 +10,7 @@ class InfiniteScrollContainer extends React.Component {
             placeholder: { top: 0, bot: 0 }
         };
 
-        this.threshold = 1;
+        this.threshold = 10;
         this.prevScrollTop = 0;
     }
 
@@ -65,7 +65,7 @@ class InfiniteScrollContainer extends React.Component {
     // more will appear above
     shiftLeft (itemViewportTop, itemViewportBot, itemRendered, threshold) {
         let itemsInViewport = itemViewportBot - itemViewportTop;
-        let target = itemViewportTop - (itemRendered - itemsInViewport - threshold);
+        let target = itemViewportTop - (itemRendered - itemsInViewport);
 
         let startingItem = target >= 0 ? target : 0;
         return { start: startingItem, end: startingItem + itemRendered };
@@ -73,7 +73,7 @@ class InfiniteScrollContainer extends React.Component {
 
     // more will appear below
     shiftRight (itemViewportTop, itemCount, itemRendered, threshold) {
-        let target = itemViewportTop - (threshold);
+        let target = itemViewportTop;
         let max = itemCount - itemRendered;
 
         let startingItem = target <= max ? target : max;
@@ -91,6 +91,7 @@ class InfiniteScrollContainer extends React.Component {
             let newSlice = this.shiftLeft(itemViewportTop, itemViewportBot, itemRendered, this.threshold);
             let newPlaceholder = this.getPlaceholderSizing(itemCount, this.props.itemHeight, itemRendered, newSlice.start);
 
+            console.log("shift left");
             this.setState({ renderedSlice: newSlice, placeholder: newPlaceholder });
         }
 
@@ -99,6 +100,7 @@ class InfiniteScrollContainer extends React.Component {
             let newSlice = this.shiftRight(itemViewportTop, itemCount, itemRendered, this.threshold);
             let newPlaceholder = this.getPlaceholderSizing(itemCount, this.props.itemHeight, itemRendered, newSlice.start);
 
+            console.log("shift right");
             this.setState({ renderedSlice: newSlice, placeholder: newPlaceholder });
         }
     }
