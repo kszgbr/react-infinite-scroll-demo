@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "InfiniteScrollContainer.scss";
 
+/** InfiniteScrollContainer ****************************************************/
+
 class InfiniteScrollContainer extends React.Component {
     constructor (props) {
         super(props);
@@ -142,9 +144,13 @@ class InfiniteScrollContainer extends React.Component {
     }
 }
 
+/** Placeholder ****************************************************************/
+
 const Placeholder = ({ pheight }) => {
     let element = (pheight > 0) ? (<div style={{ height: pheight + "px", backgroundColor: "cornflowerblue" }}></div>) : null;
     return (element);
 }
+
+/** Exports ********************************************************************/
 
 export default InfiniteScrollContainer;
