@@ -41,12 +41,12 @@ class InfiniteScrollContainer extends React.Component {
 
     getStartingValues (itemCount, itemRendered, itemHeight) {
         let slice = { start: 0, end: Math.min(itemRendered, itemCount) };
-        let placeholder = this.calculatePlaceholder(itemCount, itemHeight, itemRendered, slice.start);
+        let placeholder = this.calcPlaceholder(itemCount, itemHeight, itemRendered, slice.start);
 
         return { renderedSlice: slice, placeholder: placeholder, prevScrollTop: 0 };
     }
 
-    calculatePlaceholder (itemCount, itemHeight, itemRendered, renderedSliceStart) {
+    calcPlaceholder (itemCount, itemHeight, itemRendered, renderedSliceStart) {
         let assumedSizeOfDataset = itemCount * itemHeight;
         let assumedSizeOfDisplayedItems =
             (itemCount > itemRendered) ? (itemRendered * itemHeight) : assumedSizeOfDataset;
@@ -57,8 +57,8 @@ class InfiniteScrollContainer extends React.Component {
         return { top: topPlaceholderSize, bot: botPlaceholderSize };
     }
 
-    // more will appear above
-    shiftLeft (itemViewportTop, itemViewportBot, itemRendered, threshold) {
+    // more items above
+    calcLeftShift (itemViewportTop, itemViewportBot, itemRendered, threshold) {
         let itemsInViewport = itemViewportBot - itemViewportTop;
         let target = itemViewportTop - (itemRendered - itemsInViewport - threshold);
 
@@ -66,8 +66,8 @@ class InfiniteScrollContainer extends React.Component {
         return { start: startingItem, end: startingItem + itemRendered };
     }
 
-    // more will appear below
-    shiftRight (itemViewportTop, itemCount, itemRendered, threshold) {
+    // more items below
+    calcRightShift (itemViewportTop, itemCount, itemRendered, threshold) {
         let target = itemViewportTop - (threshold);
         let max = itemCount - itemRendered;
 
@@ -99,16 +99,16 @@ class InfiniteScrollContainer extends React.Component {
 
         // more item needed above
         if ( topRunningOut && !isScrollingDownward ) {
-            let newSlice = this.shiftLeft(itemViewportTop, itemViewportBot, itemRendered, this.threshold);
-            let newPlaceholder = this.calculatePlaceholder(itemCount, this.props.itemHeight, itemRendered, newSlice.start);
+            let newSlice = this.calcLeftShift(itemViewportTop, itemViewportBot, itemRendered, this.threshold);
+            let newPlaceholder = this.calcPlaceholder(itemCount, this.props.itemHeight, itemRendered, newSlice.start);
 
             this.setState({ renderedSlice: newSlice, placeholder: newPlaceholder, prevScrollTop: e.target.scrollTop });
         }
 
         // more item needed below
         if ( botRunningOut && isScrollingDownward ) {
-            let newSlice = this.shiftRight(itemViewportTop, itemCount, itemRendered, this.threshold);
-            let newPlaceholder = this.calculatePlaceholder(itemCount, this.props.itemHeight, itemRendered, newSlice.start);
+            let newSlice = this.calcRightShift(itemViewportTop, itemCount, itemRendered, this.threshold);
+            let newPlaceholder = this.calcPlaceholder(itemCount, this.props.itemHeight, itemRendered, newSlice.start);
 
             this.setState({ renderedSlice: newSlice, placeholder: newPlaceholder, prevScrollTop: e.target.scrollTop });
         }
