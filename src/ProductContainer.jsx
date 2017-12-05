@@ -4,7 +4,9 @@ import ReactDOM from "react-dom"
 import { connect } from 'react-redux';
 import styles from "ProductContainer.scss";
 
-import InfiniteScrollContainer from "InfiniteScrollContainer.jsx";
+// import InfiniteScrollContainer from "InfiniteScrollContainer.jsx";
+import InfiniteScrollContainer from "infsrl.jsx";
+
 import { ProductItemA, ProductItemB } from "ProductItem.jsx";
 import { fetchProductsAC, fetchProductDetailsAC } from "state";
 
