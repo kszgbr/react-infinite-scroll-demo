@@ -48,15 +48,15 @@ class InfiniteScrollContainer extends React.Component {
 
     // ------------------------------------------------------------------------------------------------------------------
 
-    calcShiftUpwards (ontopCurrent, onbotCurrent, overflow) {
+    calcShiftUpwards (ontopCurrent, onbotCurrent, overflow, itemCount) {
         const newtop = Math.max(ontopCurrent - overflow, 0);
-        const newbot = onbotCurrent + 1;
+        const newbot = Math.min(onbotCurrent + 1, itemCount);
 
         return { start: newtop, end: newbot };
     }
 
     calcShiftDownwards (ontopCurrent, onbotCurrent, overflow, itemCount) {
-        const newtop = ontopCurrent - 1;
+        const newtop = Math.max(ontopCurrent - 1, 0);
         const newbot = Math.min(onbotCurrent + overflow, itemCount);
 
         return { start: newtop, end: newbot };
@@ -75,7 +75,7 @@ class InfiniteScrollContainer extends React.Component {
     // ------------------------------------------------------------------------------------------------------------------
 
     onScrollHandler = (e) => {
-        const overflow = 5;
+        const overflow = this.props.itemOverflow;
         const treshold = 1;
 
         const vpCapacity = Math.ceil(e.target.offsetHeight / this.props.itemHeight);
@@ -85,7 +85,7 @@ class InfiniteScrollContainer extends React.Component {
         console.log('capacity', vpCapacity, 'ontop', ontop, 'onbot', onbot);
 
         if (this.state.prevScrollTop > e.target.scrollTop && this.state.renderedSlice.start >= ontop - treshold) {
-            const newslice = this.calcShiftUpwards(ontop, onbot, overflow);
+            const newslice = this.calcShiftUpwards(ontop, onbot, overflow, this.props.dataset.length);
             let newph = this.calcPlaceholder2(this.props.dataset.length, this.props.itemHeight, newslice);
 
             console.log('load more above', newslice, newph);
@@ -93,7 +93,7 @@ class InfiniteScrollContainer extends React.Component {
             this.setState({ renderedSlice: newslice, placeholder: newph, prevScrollTop: e.target.scrollTop });
 
         } else if (this.state.prevScrollTop < e.target.scrollTop && this.state.renderedSlice.end <= onbot + treshold) {
-            const newslice = this.calcShiftUpwards(ontop, onbot, overflow, this.props.dataset.length);
+            const newslice = this.calcShiftDownwards(ontop, onbot, overflow, this.props.dataset.length);
             let newph = this.calcPlaceholder2(this.props.dataset.length, this.props.itemHeight, newslice);
 
             console.log('load more below', newslice, newph);
